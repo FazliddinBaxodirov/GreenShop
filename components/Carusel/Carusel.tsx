@@ -13,7 +13,7 @@ import Image from 'next/image';
 
 export default function Carusel() {
     return (
-        <>
+        <div>
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -63,6 +63,6 @@ export default function Carusel() {
                     </div>
                 </SwiperSlide>
             </Swiper>
-        </>
+        </div>
     );
 }

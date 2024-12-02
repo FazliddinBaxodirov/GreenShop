@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+
+::-webkit-scrollbar{
+    display: none;
+}
+.categorytext{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 40px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.input-range{
+    width: 90% !important;
+}
+
+.input-range__slider{
+    background-color: #46A358 !important;
+}
+.input-range__track{
+    background-color: rgba(70, 163, 88,0.2) !important;
+}

@@ -10,11 +10,13 @@ import LoginInputs from './LoginInputs'
 import RegisterInputs from './RegisterInputs'
 import { useAxios } from '@/hook/useAxios'
 import Verify from './Verify'
+import Forgot from './Forgot'
+import NewPassword from './NewPassword'
 
 const Header = () => {
     const path = usePathname()
     const [loginModal, setLoginModal] = useState<boolean>(false)
-    const [isLogin, setIsLogin] = useState<"login" | "register" | "verify">("login")
+    const [isLogin, setIsLogin] = useState<"login" | "register" | "verify" | "forgot" | "newPassword">("login")
     const [show, setShow] = useState<boolean>(false)
     const [registerVerify, setRegisterVerify] = useState<string>("")
     const [registerEmail, setRegisterEmail] = useState<string>('')
@@ -25,7 +27,10 @@ const Header = () => {
                 usernameoremail: (e.target as HTMLFormElement).email.value,
                 password: (e.target as HTMLFormElement).password.value
             }
-            useAxios().post('/login',data).then(res => setLoginModal(false))
+            useAxios().post('/login',data).then(res => {
+            setLoginModal(false)
+            localStorage.setItem("user",JSON.stringify(res.data))
+        })
         }
         else if (isLogin == 'register') {
             setRegisterEmail((e.target as HTMLFormElement).email.value)
@@ -48,6 +53,22 @@ const Header = () => {
                 params:data
             }).then(res => {
                 setIsLogin("login")
+            })
+        }
+        else if (isLogin == "forgot") {
+            setRegisterEmail((e.target as HTMLFormElement).email.value)
+            useAxios().post(`/forgot/${(e.target as HTMLFormElement).email.value}`,{}).then(res => {
+                setIsLogin("newPassword")
+            })
+        }
+        else if(isLogin == "newPassword"){
+            const data = {
+                email:registerEmail,
+                new_password:(e.target as HTMLFormElement).newPassword.value,
+                otp:(e.target as HTMLFormElement).otp.value
+            }
+            useAxios().put("/reset-password", data).then(res => {
+                setIsLogin('login')
             })
         }
     }
@@ -75,10 +96,12 @@ const Header = () => {
                         <li onClick={() => setIsLogin("register")} className={`text-[20px] font-medium cursor-pointer duration-150 ${isLogin == "register" ? 'text-[#46A358]' : 'text-[#3D3D3D]'}`}>Register</li>
                     </ul>
                     <form onSubmit={handleSumit} className='w-full relative flex flex-col gap-[13px]'>
-                        {isLogin == "login" && <LoginInputs show={show} setShow={setShow} />}
+                        {isLogin == "login" && <LoginInputs setIsLogin={setIsLogin} show={show} setShow={setShow} />}
                         {isLogin == "register" && <RegisterInputs setShow={setShow} show={show} />}
                         {isLogin == "verify" && <Verify setRegisterVerify={setRegisterVerify} />}
-                        <Button extraClass='mt-[28px]' title={isLogin == "login" ? "Login" : "Register"} type='submit' />
+                        {isLogin == 'forgot' && <Forgot/>}
+                        {isLogin == 'newPassword' && <NewPassword/>}
+                        <Button extraClass='mt-[28px]' title={isLogin == 'login' ? "Login" : isLogin == "register" ? "Register" : isLogin == "verify" ? "Submit" : isLogin == 'forgot' ? "Send" : "Channge Password"} type='submit' />
                     </form>
                 </Modal>
             </div>
