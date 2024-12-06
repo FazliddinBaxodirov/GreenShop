@@ -9,19 +9,20 @@ interface CategoryType {
     category_name: string
 }
 
-const Categories= () => {
-    const {setCategory} = useContext(Context)
+const Categories = () => {
+    const { setCategory } = useContext(Context)
     const { data: categories = [] } = useQuery(({
         queryKey: ['categories'],
         queryFn: () => useAxios().get('categories', {
             params: { page: 1, limit: 100 }
-        }).then(res => res.data.categories)
+        }).then(res => res.data.categories),
+        enabled: true
     }))
-    return (     
-        <div style={{marginBottom:"40px"}}>
-             {
-                categories.map((item:CategoryType) => <p onClick={() => setCategory(item.category_name)} className='categorytext' key={item.category_id}>{item.category_name}</p>)
-             }
+    return (
+        <div style={{ marginBottom: "40px" }}>
+            {
+                categories.map((item: CategoryType) => <p onClick={() => setCategory(item.category_name)} className='categorytext' key={item.category_id}>{item.category_name}</p>)
+            }
         </div>
     )
 }

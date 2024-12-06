@@ -6,7 +6,7 @@ import InputRange from 'react-input-range'
 
 const PriceFilter = () => {
     const [value, setValue] = useState({ min: 25, max: 500 })
-    const { setMaxPrice, setMinPrice } = useContext(Context)
+    const { setMaxPrice, setMinPrice,minPrice,maxPrice } = useContext(Context)
 
     function handleChangeRange(value: { min: number, max: number } | any) {
         setValue(value)
@@ -18,13 +18,16 @@ const PriceFilter = () => {
     }
 
     return (
-        <div>
+        <div className='ml-[12px]'>
             <InputRange
                 value={value}
                 maxValue={1000}
                 minValue={0}
                 onChange={handleChangeRange}
             />
+            <p className='mt-[40px] font-normal text-[15px] text-[#6c6c6c]'>Price : 
+                <strong className='font-bold text-[15px] text-[#46A358]'>{` $${value.min} - $${value.max}`}</strong>
+            </p>
             <Button
                 onClick={handleFilter}
                 title="Filter"

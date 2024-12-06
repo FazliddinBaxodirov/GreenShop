@@ -24,3 +24,14 @@
 .input-range__track{
     background-color: rgba(70, 163, 88,0.2) !important;
 }
+
+.ant-pagination-item{
+    border-color: green !important;
+}
+.ant-pagination-item a{
+    color: #46A358 !important;
+}
+
+.ant-badge-count {
+    background-color: green !important;
+}
