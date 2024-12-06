@@ -7,7 +7,7 @@ import React, { useContext, useState } from 'react'
 
 const ShoppingCArd = () => {
   const { token } = useContext(Context)
-  const [productCounts, setProductCounts] = useState<{ [key: string]: number }>({}) // Har bir mahsulot uchun count holati
+  const [productCounts, setProductCounts] = useState<{ [key: string]: number }>({}) 
 
   const { data: basketProducts = [] } = useQuery({
     queryKey: ['basketProducts'],
@@ -27,7 +27,7 @@ const ShoppingCArd = () => {
 
   const handleCountChange = (productId: string, action: 'increment' | 'decrement') => {
     setProductCounts((prevCounts) => {
-      const currentCount =  1 // Agar count yo'q bo'lsa, 1 bo'lsin
+      const currentCount =  1 
       const newCount = action === 'increment' ? currentCount + 1 : currentCount > 1 ? currentCount - 1 : currentCount
       return { ...prevCounts, [productId]: newCount }
     })
@@ -46,7 +46,7 @@ const ShoppingCArd = () => {
         </thead>
         <tbody>
           {basketProducts?.ProductId?.map((item: ProductType, index: number) => {
-            const currentCount = productCounts[item.product_id] || item.count // Har bir mahsulot uchun count
+            const currentCount = productCounts[item.product_id] || item.count 
 
             return (
               <tr key={item.product_id}>

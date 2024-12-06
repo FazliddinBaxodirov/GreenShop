@@ -50,7 +50,7 @@ export default function Home() {
             <p className="mt-[46px] mb-[7px] text-[18px] text-[#3D3D3D] font-bold">Size</p>
             <Size />
           </div>
-          <Image className="" priority src={"/Supersale.png"} style={{ width: "350px", height: "520px" }} alt="Super Sale Image" width={350} height={520} />
+          <Image  priority src={"/Supersale.png"} style={{ width: "350px", height: "520px" }} alt="Super Sale Image" width={350} height={520} />
         </div>
         <div className="w-[70%]">
           <div className="flex justify-between">

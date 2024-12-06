@@ -22,7 +22,7 @@ const ProductGallery = forwardRef<HTMLDivElement, imageUrlType>(({ imageUrl }, r
   }, [imageUrl]);
 
   return (
-    <div ref={ref} className="flex">
+    <div className="flex">
       <div className="flex flex-col gap-2 pr-4">
         {images.map((img, index) => (
           <div
